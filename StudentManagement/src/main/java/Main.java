@@ -1,5 +1,6 @@
 import java.io.IOException;
 import java.util.Scanner;
+import java.util.SortedMap;
 
 public class Main {
     static int idGenerator = 0;
@@ -14,7 +15,7 @@ public class Main {
         while(checkForFirstMenu){
             checkForSecondMenu = true;
             manipulation.showMainMenu();
-            commandNumber = scan.nextInt();
+            commandNumber = getInt();
             if(commandNumber == 1){
                 manipulation.studentAdder();
                 System.out.println("Davam etmek isteyirsiniz ? h/y");
@@ -91,9 +92,28 @@ public class Main {
                     }
                 }
             }
-            else{
+            else if(commandNumber == 7){
                 System.exit(0);
+            }
+            else{
+                System.out.println("\n" + "Xahis olunur 1 ve 7 arasi reqem daxil edin." + "\n");
             }
         }
     }
+
+    private static int getInt(){
+        Scanner scan = new Scanner(System.in);
+        int commandNumber;
+        while (true){
+            try {
+                commandNumber = Integer.parseInt(scan.nextLine());
+                break;
+            }
+            catch (Exception e){
+                System.out.println("\n" + "Xahis olunur 1 ve 7 arasi reqem daxil edin." + "\n");
+            }
+        }
+        return commandNumber;
+    }
+
 }
