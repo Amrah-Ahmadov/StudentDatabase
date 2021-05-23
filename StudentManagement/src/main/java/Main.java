@@ -3,9 +3,10 @@ import java.util.Scanner;
 import java.util.SortedMap;
 
 public class Main {
-    static int idGenerator = 0;
+    static int idGenerator = 1;
     public static void main(String[] args) throws IOException {
         StudentManipulation manipulation = new StudentManipulation();
+        manipulation.getFileData();
         Scanner scan = new Scanner(System.in);
         boolean checkForFirstMenu = true;
         boolean checkForSecondMenu = true;
