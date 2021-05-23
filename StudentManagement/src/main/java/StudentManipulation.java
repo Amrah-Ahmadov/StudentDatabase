@@ -1,7 +1,9 @@
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jsoniter.JsonIterator;
 
 import java.io.*;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
 
@@ -240,5 +242,17 @@ public class StudentManipulation {
         }
         br.close();
         return sb.toString();
+    }
+
+    public void getFileData() throws IOException {
+        FileReader in = new FileReader("classrom.json");
+        StringBuilder jsonString = new StringBuilder();
+        int i;
+        while((i=in.read())!=-1)
+            jsonString.append((char)i);
+        in.close();
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        myStudents = objectMapper.readValue(jsonString.toString(), Students.class );
     }
 }
