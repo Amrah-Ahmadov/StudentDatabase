@@ -1,22 +1,27 @@
 import java.io.IOException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.SortedMap;
 
 public class Main {
     static int idGenerator = 1;
     public static void main(String[] args) throws IOException {
+        
         StudentManipulation manipulation = new StudentManipulation();
         manipulation.getFileData();
         Scanner scan = new Scanner(System.in);
         boolean checkForFirstMenu = true;
         boolean checkForSecondMenu = true;
-        int commandNumber;
+        int commandNumber = 0;
         String continueOrNot;
+        String input;
 
         while(checkForFirstMenu){
             checkForSecondMenu = true;
             manipulation.showMainMenu();
-            commandNumber = getInt(1,7);
+            input = scan.next();
+            commandNumber = instanceOfString(input);
+
             if(commandNumber == 1){
                 manipulation.studentAdder();
                 System.out.println("Davam etmek isteyirsiniz ? h/y");
@@ -60,7 +65,7 @@ public class Main {
             }else if(commandNumber == 6){
                 while(checkForSecondMenu){
                     manipulation.showSearchMenu();
-                    commandNumber = getInt(1,4);
+                    commandNumber = scan.nextInt();
                     if(commandNumber == 1){
                         manipulation.searchStudentByName();
                         System.out.println("Davam etmek isteyirsiniz ? h/y");
@@ -88,33 +93,30 @@ public class Main {
                             checkForFirstMenu = false;
                             System.exit(0);
                         }
-                    }else {
+                    }else if (commandNumber == 4){
                         checkForSecondMenu = false;
+                    }else {
+                        System.out.println("Daxil etidiyiniz eded 1 - 4 araliginda olmalidir !");
+                        System.out.println();
                     }
                 }
             }
-            else{
+            else if(commandNumber == 7){
                 System.exit(0);
+            }else{
+                System.out.println("daxil etdiyiniz eded 1 - 7 araliginda olmalidir !");
+                System.out.println();
             }
         }
     }
 
-    private static int getInt(int min, int max){
-        Scanner scan = new Scanner(System.in);
-        int commandNumber;
-        while (true){
-            try {
-                commandNumber = Integer.parseInt(scan.nextLine());
-                if(commandNumber >= min && commandNumber <= max){
-                    break;
-                }
-            }
-            catch (Exception ignored){}
-            finally {
-                System.out.println("\n" + "Xahis olunur " + min + " ve " + max + " arasi reqem daxil edin." + "\n");
-            }
+ public static int instanceOfString(Object obj){
+     int x = 0;
+        try{
+            x = Integer.parseInt(String.valueOf(obj));
+        }catch (NumberFormatException ex){
+            System.out.println("eded olmalidir");
         }
-        return commandNumber;
+     return x;
     }
-
 }
